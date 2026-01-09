@@ -3,7 +3,7 @@ import { api } from "../api.js";
 import Reports from "./Reports.jsx";
 
 export default function Admin() {
-    const [tab, setTab] = useState("rooms");
+    const [tab, setTab] = useState("dashboard");
     const [rooms, setRooms] = useState([]);
     const [exams, setExams] = useState([]);
     const [students, setStudents] = useState([]);
@@ -37,6 +37,7 @@ export default function Admin() {
     return (
         <div className="main">
             <div className="sidebar">
+                <div className={`navitem ${tab==="dashboard"?"active":""}`} onClick={()=>setTab("dashboard")}>dashboard</div>
                 <div className={`navitem ${tab==="rooms"?"active":""}`} onClick={()=>setTab("rooms")}>rooms</div>
                 <div className={`navitem ${tab==="exams"?"active":""}`} onClick={()=>setTab("exams")}>exams</div>
                 <div className={`navitem ${tab==="students"?"active":""}`} onClick={()=>setTab("students")}>students</div>
@@ -45,6 +46,41 @@ export default function Admin() {
 
             <div className="content">
 
+                {/* -------- DASHBOARD -------- */}
+                {tab==="dashboard" && (
+                    <>
+                        <div className="pagehead">
+                            <div>
+                                <h2>admin dashboard</h2>
+                                <div className="sub">click cards to view details</div>
+                            </div>
+                        </div>
+
+                        <div className="grid4">
+                            <div className="tile orange" style={{cursor:"pointer"}} onClick={()=>setTab("rooms")}>
+                                <div className="t">rooms</div>
+                                <div className="d">{rooms.length} total</div>
+                            </div>
+
+                            <div className="tile blue" style={{cursor:"pointer"}} onClick={()=>setTab("exams")}>
+                                <div className="t">exams</div>
+                                <div className="d">{exams.length} total</div>
+                            </div>
+
+                            <div className="tile teal" style={{cursor:"pointer"}} onClick={()=>setTab("students")}>
+                                <div className="t">students</div>
+                                <div className="d">{students.length} total</div>
+                            </div>
+
+                            <div className="tile purple">
+                                <div className="t">system</div>
+                                <div className="d">active</div>
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                {/* -------- ROOMS -------- */}
                 {tab==="rooms" && (
                     <div className="card tablewrap">
                         <h3>rooms</h3>
@@ -69,6 +105,7 @@ export default function Admin() {
                     </div>
                 )}
 
+                {/* -------- EXAMS -------- */}
                 {tab==="exams" && (
                     <div className="card tablewrap">
                         <h3>exams</h3>
@@ -93,6 +130,7 @@ export default function Admin() {
                     </div>
                 )}
 
+                {/* -------- STUDENTS -------- */}
                 {tab==="students" && (
                     <div className="card tablewrap">
                         <h3>students</h3>
